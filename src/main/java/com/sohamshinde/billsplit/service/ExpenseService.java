@@ -258,7 +258,10 @@ public class ExpenseService {
         }
 
         // ✅ Fetch updated participants (if changed)
-        List<User> updatedParticipants = new ArrayList<>(expense.getParticipants());
+        List<User> updatedParticipants = new ArrayList<>(
+                expense.getParticipants() != null ? expense.getParticipants() : Collections.emptyList()
+        );
+
         boolean participantsUpdated = false;
 
         if (expenseDto.getGroupId() != null) {

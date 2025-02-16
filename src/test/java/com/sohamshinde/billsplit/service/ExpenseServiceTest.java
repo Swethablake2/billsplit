@@ -334,20 +334,33 @@ class ExpenseServiceTest {
     void testUpdateExpense() throws ExpenseException {
         Expense expense = Expense.builder()
                 .id(1L)
-                .amount(new BigDecimal("150.00"))
+                .payer(payer) // ✅ Ensure the authenticated user is the payer
+                .amount(new BigDecimal("200.00"))
                 .currency(Currency.USD)
                 .description("Old Description")
                 .splitType(SplitType.EQUAL)
+                .participants(Arrays.asList(participant1, participant2)) // ✅ Ensure participants are set
                 .build();
 
         when(expenseRepository.findById(1L)).thenReturn(Optional.of(expense));
+        when(userService.getAuthenticatedUser()).thenReturn(payer); // ✅ Mock logged-in user
+
+        // ✅ Define participant shares properly
+        Map<Long, BigDecimal> participantShares = new HashMap<>();
+        participantShares.put(participant1.getId(), new BigDecimal("100.00"));
+        participantShares.put(participant2.getId(), new BigDecimal("100.00"));
 
         ExpenseDto updatedExpenseDto = ExpenseDto.builder()
                 .amount(new BigDecimal("200.00"))
                 .currency(Currency.USD)
                 .description("Updated Description")
                 .splitType(SplitType.EXACT)
+                .participantShares(participantShares) // ✅ Ensure shares are provided
                 .build();
+
+        // ✅ Debug logs to verify values
+        System.out.println("DEBUG: Updating Expense with SplitType = " + updatedExpenseDto.getSplitType());
+        System.out.println("DEBUG: Participant Shares = " + updatedExpenseDto.getParticipantShares());
 
         expenseService.updateExpense(1L, updatedExpenseDto);
 
